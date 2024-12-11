@@ -73,6 +73,9 @@ $ npx prisma migrate dev
 
 # run migrate production
 $ npx prisma migrate dev
+
+# run seeds to populate database
+$ npx prisma db seed
 ```
 
 ## Support
