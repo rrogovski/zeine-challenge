@@ -16,12 +16,17 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main",
+    "start:docker": "npm run services:up && npm run wait-for-postgres && nest start",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "services:up": "docker compose --env-file .env.development --file src/infra/compose.yaml up -d",
+    "services:stop": "docker compose --env-file .env.development -f src/infra/compose.yaml stop",
+    "services:down": "docker compose --env-file .env.development -f src/infra/compose.yaml down",
+    "wait-for-postgres": "node --env-file=.env.development src/infra/scripts/wait-for-postgres.js"
   },
   "dependencies": {
     "@nestjs/common": "^10.4.13",
